@@ -1,0 +1,38 @@
+.app{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .logo{
+        animation: app-logo-spin infinite 20s linear;
+        height: 80px;
+    }
+    .app-tile{
+        font-size: 1.5em;
+    }
+    @keyframes app-logo-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+    .header-footer{
+        flex: none;
+        text-align: center;
+        background-color: #222;
+        padding: 20px;
+        color: white;
+    }
+
+    .app-content{
+        flex: 1 0 auto; 
+        padding:  20px 40px;
+        font-size: large;
+        @import './home.less';
+    }
+    
+}
+
+
