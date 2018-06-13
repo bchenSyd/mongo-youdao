@@ -39,6 +39,13 @@ module.exports = {
           "less-loader"]
       },
       {
+        test:/\.css$/,
+        use:[
+          "style-loader",
+          "css-loader"
+        ]
+      },
+      {
         test: /\.(jpe?g|gif|png|svg)$/,
         use: [{
           loader: 'url-loader',
@@ -82,5 +89,9 @@ module.exports = {
     // or, 
     // put `--hot` in cli options (which instruct wds to auto insert a HMRPlugin into your webpac.config.js)
     //#######################################################################
+
+    proxy:{
+      '/api':"http://localhost:8080"
+    }
   }
 };

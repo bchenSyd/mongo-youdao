@@ -17,9 +17,12 @@ app.use(express.static(path.resolve(__dirname, './dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var router = express.Router();
-router.get("/search", function (req, res) {
+router.get("/search", async function (req, res) {
   const { query: { q } } = req;
-
+  await new Promise(res => setTimeout(() => {
+    res(true);
+  }, 1000));
+  
   res.json({
     q,
     code: 0

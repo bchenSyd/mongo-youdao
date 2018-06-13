@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import logo from "./styles/logo.svg";
+import logo from "../styles/logo.svg";
 import Home from "./components/home";
 import Result from "./components/result";
 
