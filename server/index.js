@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.use(express.static(path.resolve(__dirname, './dist')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var router = express.Router();
