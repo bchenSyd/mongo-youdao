@@ -6,10 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: path.resolve(__dirname, "./src/index.js"),
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
     publicPath: "/"
   },
   module: {
@@ -72,7 +72,7 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     host: "0.0.0.0",
-    port: 8082,
+    port: 3000,
     historyApiFallback: true,
 
     //#######################################################################
