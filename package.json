@@ -1,16 +1,16 @@
 {
-  "name": "my-website",
+  "name": "bo-youdao",
   "version": "1.0.0",
-  "description": "/coral",
-  "main": "index.js",
+  "description": "bo-youdao",
   "scripts": {
     "start": "npm-run-all -p start-server start-client",
     "start-server": "nodemon server/index.js",
     "start-client": "webpack-dev-server --config=client/webpack.config ",
-    "build-client": "npm run clean&& export NODE_ENV=production&& webpack --config=client/webpack.config",
+    "build-client": "npm run clean&& export NODE_ENV=production&&webpack --config=client/webpack.config",
     "debug": "node --inspect-brk server/index.js",
     "clean": "rm -rf dist",
-    "start-heroku":"node server/index.js"
+    "start-heroku":"node server/index.js",
+    "heroku-postbuild":"npm run build-client"
   },
   "author": "",
   "license": "ISC",
