@@ -1,6 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
+const express = require("express");
+const history = require('connect-history-api-fallback');
+const bodyParser = require("body-parser");
 const app = express();
 const chalk = require("chalk");
 const apiRoute = require("./route");
@@ -16,7 +17,9 @@ app.use(function(req, res, next) {
 });
 
 // static
+app.use(history());
 app.use(express.static(path.resolve(__dirname, "../dist")));
+
 
 // body-parser
 app.use(bodyParser.json());
