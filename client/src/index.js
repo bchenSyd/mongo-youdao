@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import App from './app';
 import '../styles/index.less';
 
-const root = document.createElement("div");
-root.id = "root";
-document.body.appendChild(root);
 ReactDom.render(
   <Router>
     <Route component={App} />

@@ -2,15 +2,15 @@ const path = require("path");
 const chalk = require("chalk");
 const webpack = require("webpack");
 const autoprefixer = require("autoprefixer");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const copyWebpackPlugin = require("copy-webpack-plugin");
 
 const env = process.env.NODE_ENV;
 console.log(`********** webpack env=${JSON.stringify(env)} *********`);
 
-const production = env === 'production';
+const production = env === "production";
 module.exports = {
   mode: production ? "production" : "development",
-  devtool: production? '' : 'cheap-module-source-map',
+  devtool: production ? "" : "cheap-module-source-map",
   entry: path.resolve(__dirname, "./src/index.js"),
   output: {
     filename: "bundle.js",
@@ -75,10 +75,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: "webpack4 example"
-    }),
-    new webpack.HotModuleReplacementPlugin() //required when run from wds cli
+    new webpack.HotModuleReplacementPlugin(), //required when run from wds cli
+    new copyWebpackPlugin([path.resolve(__dirname, "./index.html")])
   ],
   resolve: {
     extensions: [".js", ".jsx", ".json", ".less"]
