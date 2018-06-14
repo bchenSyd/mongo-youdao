@@ -24,11 +24,16 @@ const Home = ({ history, isloading, startLoading }) => {
       });
     startLoading();
   };
+  const handleEnterKey = e => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
   return (
     <div className="home-page wrapper">
       {isloading && <ReactSpinner className="react-spinner" />}
       <div className="search-box">
-        <input name="q" />
+        <input name="q" onKeyPress={handleEnterKey} />
         <button onClick={onClick}>search</button>
       </div>
     </div>

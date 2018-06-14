@@ -10,7 +10,6 @@ const search = async keyword => {
         $options: "i"
       }
     })
-    .limit(50)
     .toArray();
   return {
     q: keyword,
