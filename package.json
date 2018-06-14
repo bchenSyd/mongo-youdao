@@ -9,8 +9,8 @@
     "build-client": "npm run clean&& export NODE_ENV=production&&webpack --config=client/webpack.config",
     "debug": "node --inspect-brk server/index.js",
     "clean": "rm -rf dist",
-    "start-heroku": "node server/index.js",
-    "heroku-prebuild": "npm run build-client"
+    "start-heroku":"node server/index.js",
+    "heroku-postbuild":"npm run build-client"
   },
   "author": "",
   "license": "ISC",
