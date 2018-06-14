@@ -2,8 +2,11 @@ import React from "react";
 import queryString from "query-string";
 import { ReactSpinner } from "react-spinning-wheel";
 import { compose, withState, withHandlers } from "recompose";
+import classNames from "classnames/bind";
 import fetch from "../common/fetch";
+import styles from "./home.less";
 
+const cx = classNames.bind(styles);
 const Home = ({ history, isloading, startLoading }) => {
   const onClick = () => {
     const { value: keyword } = document.querySelector(`input[name='q']`);
@@ -33,9 +36,9 @@ const Home = ({ history, isloading, startLoading }) => {
     }
   };
   return (
-    <div className="home-page wrapper">
-      {isloading && <ReactSpinner className="react-spinner" />}
-      <div className="search-box">
+    <div className={cx(["home-page", "wrapper"])}>
+      {isloading && <ReactSpinner className={cx("react-spinner")} />}
+      <div className={cx("search-box")}>
         <input name="q" onKeyPress={handleEnterKey} />
         <button onClick={onClick}>search</button>
       </div>

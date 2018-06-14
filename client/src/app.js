@@ -1,22 +1,25 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import logo from "../styles/logo.svg";
+import logo from "../assets/logo.svg";
 import { HomePage, ResultPage, ErrorPage } from "./layouts";
+import classNames from "classnames/bind";
+import styles from "./app.less";
 
+const cx = classNames.bind(styles);
 const App = ({ location }) => {
   return (
-    <div className="app">
-      <header className="header-footer">
-        <img src={logo} className="logo" alt="logo" />
+    <div className={cx("app")}>
+      <header className={cx("header-footer")}>
+        <img src={logo} className={cx("logo")} alt="logo" />
       </header>
-      <div className="app-content">
+      <div className={cx("app-content")}>
         <Switch location={location}>
           <Route exact path="/" component={HomePage} />
           <Route path="/result" component={ResultPage} />
           <Route component={ErrorPage} />
         </Switch>
       </div>
-      <footer className="header-footer">
+      <footer className={cx("header-footer")}>
         <div>copy-rght: bochen2014@yahoo.com</div>
       </footer>
     </div>

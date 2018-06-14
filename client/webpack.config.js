@@ -30,7 +30,13 @@ module.exports = {
         test: /\.less$/,
         use: [
           "style-loader",
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              module: true,
+              localIdentName: "[name]__[local]"
+            }
+          },
           {
             loader: "postcss-loader",
             options: {
