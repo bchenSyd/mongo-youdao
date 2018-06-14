@@ -1,7 +1,7 @@
 const db = require("../db");
 
 const search = async keyword => {
-  const results = await db
+  const matches = await db
     .get()
     .collection("words")
     .find({
@@ -14,7 +14,8 @@ const search = async keyword => {
     .toArray();
   return {
     q: keyword,
-    results
+    count: matches.length,
+    matches
   };
 };
 
