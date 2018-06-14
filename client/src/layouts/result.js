@@ -1,26 +1,44 @@
-import React, { Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import classNames from "classnames/bind";
 import Record from "../components/record";
 import styles from "./result.less";
 
 const cx = classNames.bind(styles);
-const Result = ({ location }) => {
-  const {
-    state: { q, count, matches }
-  } = location;
+class Result extends Component {
+  componentDidMount() {
+    const {
+      location: { state },
+      history
+    } = this.props;
+    if (!state) {
+      history.push("/");
+    }
+  }
 
-  const displayNoResult = keyword => (
+  displayNoResult = keyword => (
     <Fragment>the query for {keyword} returns no result</Fragment>
   );
-  return (
-    <div className={cx("results")}>
-      {count ? (
-        <div>{matches.map(m => <Record key={`_key_${m.index}`} {...m} />)}</div>
-      ) : (
-        displayNoResult(q)
-      )}
-    </div>
-  );
-};
+
+  render() {
+    const {
+      location: { state }
+    } = this.props;
+    if (!state) {
+      return null;
+    }
+    const { q, count, matches } = state;
+    return (
+      <div className={cx("results")}>
+        {count ? (
+          <div>
+            {matches.map(m => <Record key={`_key_${m.index}`} {...m} />)}
+          </div>
+        ) : (
+          this.displayNoResult(q)
+        )}
+      </div>
+    );
+  }
+}
 
 export default Result;
