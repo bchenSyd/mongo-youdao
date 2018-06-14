@@ -1,11 +1,12 @@
 const express = require("express");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
-const apiRoute = require('./route');
-
+const chalk = require("chalk");
+const apiRoute = require("./route");
+const { connect: connectDb, close: closeDb } = require("./db");
 // cors
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -15,7 +16,7 @@ app.use(function (req, res, next) {
 });
 
 // static
-app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use(express.static(path.resolve(__dirname, "../dist")));
 
 // body-parser
 app.use(bodyParser.json());
@@ -24,7 +25,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // route
 app.use("/api", apiRoute);
 
-
 const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0");
-console.log("sever is listening on http://localhost:" + port);
+const startServer = async () => {
+  try {
+    await connectDb();
+    app.listen(port, "0.0.0.0");
+    console.log(chalk.green(`sever is listening on http://localhost:${port}`));
+  } catch (err) {
+    console.error(chalk.red(`unable to connect to mongodb. Error: ${err}`));
+    process.exit(-1);
+  }
+
+  process.on("SIGINT", async () => {
+    console.warn("SIGINT captured");
+    await closeDb();
+    process.exit(-1);
+  });
+};
+
+startServer();
