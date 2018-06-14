@@ -17,7 +17,10 @@ const Home = ({ history, isloading, startLoading }) => {
       })}`
     )
       .then(result => {
-        history.push("/result");
+        history.push({
+          pathname: "/result",
+          state: result
+        });
       })
       .catch(err => {
         history.push("/error");

@@ -1,8 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import logo from "../styles/logo.svg";
-import Home from "./components/home";
-import Result from "./components/result";
+import { HomePage, ResultPage, ErrorPage } from "./layouts";
 
 const App = ({ location }) => {
   return (
@@ -12,8 +11,9 @@ const App = ({ location }) => {
       </header>
       <div className="app-content">
         <Switch location={location}>
-          <Route exact path="/" component={Home} />
-          <Route path="/result" component={Result} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/result" component={ResultPage} />
+          <Route component={ErrorPage} />
         </Switch>
       </div>
       <footer className="header-footer">
