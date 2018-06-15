@@ -31,11 +31,14 @@ const Home = ({ history, isloading, startLoading }) => {
   };
   return (
     <div className={cx(["home-page", "wrapper"])}>
-      {isloading && <ReactSpinner className={cx("react-spinner")} />}
-      <div className={cx("search-box")}>
-        <input name="q" onKeyPress={handleEnterKey} />
-        <button onClick={onClick}>search</button>
-      </div>
+      {isloading ? (
+        <ReactSpinner className={cx("react-spinner")} />
+      ) : (
+        <div className={cx("search-box")}>
+          <input name="q" onKeyPress={handleEnterKey} />
+          <button onClick={onClick}>search</button>
+        </div>
+      )}
     </div>
   );
 };
