@@ -1,9 +1,8 @@
 import React from "react";
-import queryString from "query-string";
 import { ReactSpinner } from "react-spinning-wheel";
 import { compose, withState, withHandlers } from "recompose";
+import search from "../common/search";
 import classNames from "classnames/bind";
-import fetch from "../common/fetch";
 import styles from "./home.less";
 
 const cx = classNames.bind(styles);
@@ -13,12 +12,7 @@ const Home = ({ history, isloading, startLoading }) => {
     if (!keyword) {
       return;
     }
-
-    fetch(
-      `/api/search?${queryString.stringify({
-        q: keyword
-      })}`
-    )
+    search(keyword)
       .then(result => {
         history.push({
           pathname: "/result",
