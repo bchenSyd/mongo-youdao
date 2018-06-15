@@ -1,3 +1,4 @@
+import './polyfills';
 import React, { Component } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
