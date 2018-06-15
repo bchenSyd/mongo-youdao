@@ -1,6 +1,7 @@
 const db = require("../db");
 
-const search = async keyword => {
+const pageSize = 20;
+const search = async ({ keyword, pageNumber = 1 }) => {
   const matches = await db
     .get()
     .collection("words")
@@ -9,12 +10,15 @@ const search = async keyword => {
         $regex: keyword,
         $options: "i"
       }
-    })
-    .toArray();
+    });
+
+  const totalCount = await matches.count();
+  const data = await matches.skip((pageNumber - 1) * pageSize).limit(pageSize).toArray();
   return {
     q: keyword,
-    count: matches.length,
-    matches
+    totalPages: Math.ceil(totalCount / pageSize),
+    currentPage: pageNumber,
+    data
   };
 };
 
