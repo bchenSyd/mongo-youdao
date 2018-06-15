@@ -1,10 +1,18 @@
-import queryString from "query-string";
 import fetch from "../common/fetch";
 
-const search = (keyword, pageNum=1) => {
+const queryString = queryObj => {
+  return Object.keys(queryObj)
+    .reduce(
+      (acc, val) => acc + `&${val}=` + encodeURIComponent(queryObj[val]),
+      ""
+    )
+    .slice(1);
+};
+
+const search = (keyword, pageNum = 1) => {
   return new Promise((res, rej) => {
     fetch(
-      `/api/search?${queryString.stringify({
+      `/api/search?${queryString({
         q: keyword,
         pageNum
       })}`
