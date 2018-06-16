@@ -9,7 +9,10 @@ import styles from "./result.less";
 
 const cx = classNames.bind(styles);
 const NoResult = ({ keyword }) => (
-  <Fragment>the query for {keyword} returns no result</Fragment>
+  <div className={cx('no-result')}>
+    <h2 >the query for {keyword} returns no result</h2>
+    <i>make sure your got keyword and pageNumber correct</i>
+  </div>
 );
 
 class Result extends Component {
@@ -72,14 +75,14 @@ class Result extends Component {
     const { q, totalPages, currentPage, data } = queryResult;
     return (
       <div className={cx("results")}>
-        {totalPages ? (
+        { (totalPages && totalPages >= currentPage ) ? (
           <Fragment>
             <div className={cx("result-data")}>
               {data.map(d => <Record key={`_key_${d.index}`} {...d} />)}
             </div>
             <Paginator
-              totalPages={Number(totalPages)}
-              currentPageNum={Number(currentPage)}
+              totalPages={totalPages}
+              currentPageNum={currentPage}
               buildPaginatorLink={this.buildPaginatorLink(q)}
             />
           </Fragment>

@@ -17,7 +17,7 @@ const search = async ({ keyword, pageNumber = 1 }) => {
   return {
     q: keyword,
     totalPages: Math.ceil(totalCount / pageSize),
-    currentPage: pageNumber,
+    currentPage: Number(pageNumber),
     data
   };
 };
