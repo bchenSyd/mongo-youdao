@@ -21,7 +21,8 @@
     "body-parser": "^1.18.3",
     "connect-history-api-fallback": "^1.5.0",
     "express": "^4.16.3",
-    "mongodb": "^3.0.10"
+    "mongodb": "^3.0.10",
+    "chalk": "^2.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.0",
@@ -33,7 +34,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "chalk": "^2.4.1",
     "classnames": "^2.2.6",
     "copy-webpack-plugin": "^4.5.1",
     "core-js": "^2.5.7",
