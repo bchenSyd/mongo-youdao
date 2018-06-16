@@ -3,6 +3,7 @@ import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
 import Record from "../components/record";
 import Paginator from "../components/pageinator";
+import { encode, decode } from "../common/queryString";
 import search from "../common/search";
 import styles from "./result.less";
 
@@ -14,27 +15,46 @@ const NoResult = ({ keyword }) => (
 class Result extends Component {
   state = {
     isloading: false,
-    queryResult: this.props.location.state
+    queryResult: null
   };
 
   componentDidMount() {
+    alert("cdm");
     const {
-      location: { state },
+      location: { search },
       history
     } = this.props;
-    if (!state) {
+
+    const { q, pageNum } = decode(search);
+    if (!q) {
       history.push("/");
     }
+
+    this.query(q, pageNum);
   }
 
   pageNavigation = q => pageNum => e => {
-    const { history } = this.props;
     // how to prevent <a href="#"> change url?
     e.preventDefault(); // you can't return false to prevent default; you must call preventDefault
+    const { history } = this.props;
+    history.push(
+      `/result?${encode({
+        q,
+        pageNum
+      })}`
+    );
+  };
+
+  query = (q, pageNum = 1) => {
     this.setState({
       isloading: true
     });
-    search(q, pageNum)
+    search(
+      encode({
+        q,
+        pageNum
+      })
+    )
       .then(result => {
         this.setState({
           queryResult: result,
@@ -45,15 +65,15 @@ class Result extends Component {
         history.push("/error");
       });
   };
-
   render() {
-    const { queryResult } = this.state;
-    if (!queryResult) {
-      return null;
-    }
     const { isloading } = this.state;
     if (isloading) {
       return <ReactSpinner className={cx("react-spinner")} />;
+    }
+
+    const { queryResult } = this.state;
+    if (!queryResult) {
+      return null;
     }
 
     const { q, totalPages, currentPage, data } = queryResult;

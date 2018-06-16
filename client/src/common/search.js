@@ -1,22 +1,8 @@
 import fetch from "../common/fetch";
 
-const queryString = queryObj => {
-  return Object.keys(queryObj)
-    .reduce(
-      (acc, val) => acc + `&${val}=` + encodeURIComponent(queryObj[val]),
-      ""
-    )
-    .slice(1);
-};
-
-const search = (keyword, pageNum = 1) => {
+const search = queryParam => {
   return new Promise((res, rej) => {
-    fetch(
-      `/api/search?${queryString({
-        q: keyword,
-        pageNum
-      })}`
-    )
+    fetch(`/api/search?${queryParam}`)
       .then(result => {
         res(result);
       })
