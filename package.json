@@ -1,6 +1,9 @@
 {
   "name": "bo-youdao",
   "version": "1.0.0",
+  "engines": {
+    "npm": "^6.0.0"
+  },
   "description": "bo-youdao",
   "scripts": {
     "start": "npm-run-all -p start-server start-client",
