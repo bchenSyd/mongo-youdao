@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const App = ({ location }) => {
   return (
     <div className={cx("app")}>
-      <header className={cx("header-footer")}>
+      <header className={cx("header")}>
         <img src={logo} className={cx("logo")} alt="logo" />
       </header>
       <div className={cx("app-content")}>
@@ -19,7 +19,7 @@ const App = ({ location }) => {
           <Route component={ErrorPage} />
         </Switch>
       </div>
-      <footer className={cx("header-footer")}>
+      <footer className={cx("footer")}>
         <div>copy-rght: bochen2014@yahoo.com</div>
       </footer>
     </div>

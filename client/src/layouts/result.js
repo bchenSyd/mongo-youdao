@@ -19,7 +19,6 @@ class Result extends Component {
   };
 
   componentDidMount() {
-    alert("cdm");
     const {
       location: { search },
       history
@@ -33,17 +32,11 @@ class Result extends Component {
     this.query(q, pageNum);
   }
 
-  pageNavigation = q => pageNum => e => {
-    // how to prevent <a href="#"> change url?
-    e.preventDefault(); // you can't return false to prevent default; you must call preventDefault
-    const { history } = this.props;
-    history.push(
-      `/result?${encode({
-        q,
-        pageNum
-      })}`
-    );
-  };
+  buildPaginatorLink = q => pageNum =>
+    `/result?${encode({
+      q,
+      pageNum
+    })}`;
 
   query = (q, pageNum = 1) => {
     this.setState({
@@ -87,7 +80,7 @@ class Result extends Component {
             <Paginator
               totalPages={Number(totalPages)}
               currentPageNum={Number(currentPage)}
-              pageNavigation={this.pageNavigation(q)}
+              buildPaginatorLink={this.buildPaginatorLink(q)}
             />
           </Fragment>
         ) : (

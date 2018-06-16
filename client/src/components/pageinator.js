@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './paginator.less';
 
 const cx = classNames.bind(styles);
-const Paginator = ({ totalPages, currentPageNum, pageNavigation }) => {
+const Paginator = ({ totalPages, currentPageNum, buildPaginatorLink }) => {
     const naviRange = 2; //  1 ... 4  5  *6*  7  8 ... 38
     const pageNumbers = Array.from({ length: naviRange * 2 + 1 },
         (_, i) => currentPageNum - naviRange + i)
@@ -12,7 +12,7 @@ const Paginator = ({ totalPages, currentPageNum, pageNavigation }) => {
     const showLeftLump = () => {
         const leftLump = [];
         if (currentPageNum > naviRange + 1) {
-            leftLump.push(<a href="#" key={`page_1`} onClick={pageNavigation(1)}>1</a>);
+            leftLump.push(<a href={buildPaginatorLink(1)} key={`page_1`} >1</a>);
         }
         if (currentPageNum > naviRange + 2) {
             leftLump.push(<span key={`page_left_lump`}>...</span>);
@@ -25,7 +25,7 @@ const Paginator = ({ totalPages, currentPageNum, pageNavigation }) => {
             rightLump.push(<span key={`page_right_lump`}>...</span>);
         }
         if (totalPages > currentPageNum + naviRange) {
-            rightLump.push(<a href="#" key={`page_${totalPages}`} onClick={pageNavigation(totalPages)}>{totalPages}</a>);
+            rightLump.push(<a href={buildPaginatorLink(totalPages)} key={`page_${totalPages}`} >{totalPages}</a>);
         }
         return rightLump;
     };
@@ -34,7 +34,7 @@ const Paginator = ({ totalPages, currentPageNum, pageNavigation }) => {
             {showLeftLump()}
             {pageNumbers.map(p =>
                 (p === currentPageNum ? <span key={`page_${p}`}>{p}</span>
-                    : <a href="#" key={`page_${p}`} onClick={pageNavigation(p)}>{p}</a>))}
+                    : <a href={buildPaginatorLink(p)} key={`page_${p}`}>{p}</a>))}
             {showRightLump()}
         </div>
     );
