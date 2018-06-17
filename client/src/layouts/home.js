@@ -11,7 +11,7 @@ class Home extends PureComponent {
   componentDidMount() {
     this.queryRef.current.focus();
   }
-  
+
   onClick = () => {
     const { history } = this.props;
     const { value: keyword } = document.querySelector(`input[name='q']`);
@@ -20,7 +20,8 @@ class Home extends PureComponent {
     }
     history.push(
       `/result?${encode({
-        q: keyword
+        q: keyword,
+        pageNum: 1
       })}`
     );
   };
@@ -33,7 +34,11 @@ class Home extends PureComponent {
     return (
       <div className={cx(["home-page", "wrapper"])}>
         <div className={cx("search-box")}>
-          <input name="q" onKeyPress={this.handleEnterKey} ref={this.queryRef}/>
+          <input
+            name="q"
+            onKeyPress={this.handleEnterKey}
+            ref={this.queryRef}
+          />
           <button onClick={this.onClick}>search</button>
         </div>
       </div>
