@@ -12,4 +12,6 @@ const search = queryParam => {
   });
 };
 
-export default search;
+export {
+  search,
+};

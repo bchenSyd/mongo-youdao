@@ -1,28 +1,46 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Record from "../components/record";
 import Paginator from "../components/pageinator";
 import { encode, decode } from "../common/queryString";
-import search from "../common/search";
+import { search as searchAPI } from "../common/apiClient";
 import styles from "./result.less";
 
 const cx = classNames.bind(styles);
 const NoResult = ({ keyword }) => (
-  <div className={cx('no-result')}>
-    <h2 >the query for {keyword} returns no result</h2>
+  <div className={cx("no-result")}>
+    <h2>the query for {keyword} returns no result</h2>
     <i>make sure your got keyword and pageNumber correct</i>
   </div>
 );
 
-class Result extends Component {
+class Result extends PureComponent {
   state = {
     isloading: false,
     queryResult: null
   };
 
   componentDidMount() {
+    this.queryData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { location: locationOld } = prevProps;
+    const { location } = this.props;
+    if (locationOld !== location) {
+      this.queryData();
+    }
+  }
+
+  buildPaginatorLink = q => pageNum =>
+    `/result?${encode({
+      q,
+      pageNum
+    })}`;
+
+  queryData = () => {
     const {
       location: { search },
       history
@@ -33,20 +51,11 @@ class Result extends Component {
       history.push("/");
     }
 
-    this.query(q, pageNum);
-  }
-
-  buildPaginatorLink = q => pageNum =>
-    `/result?${encode({
-      q,
-      pageNum
-    })}`;
-
-  query = (q, pageNum = 1) => {
     this.setState({
       isloading: true
     });
-    search(
+
+    searchAPI(
       encode({
         q,
         pageNum
@@ -62,6 +71,7 @@ class Result extends Component {
         history.push("/error");
       });
   };
+
   render() {
     const { isloading } = this.state;
     if (isloading) {
@@ -76,8 +86,8 @@ class Result extends Component {
     const { q, totalPages, currentPage, data } = queryResult;
     return (
       <div className={cx("results")}>
-        <Link to='/'>Home</Link>
-        { (totalPages && totalPages >= currentPage ) ? (
+        <Link to="/">Home</Link>
+        {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>
               {data.map(d => <Record key={`_key_${d.index}`} {...d} />)}
