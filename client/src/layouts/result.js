@@ -2,8 +2,7 @@ import React, { PureComponent, Fragment } from "react";
 import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import Record from "../components/record";
-import Paginator from "../components/pageinator";
+import { Record, Paginator, BackTop } from "../components";
 import { encode, decode } from "../common/queryString";
 import { search as searchAPI } from "../common/apiClient";
 import styles from "./result.less";
@@ -92,6 +91,7 @@ class Result extends PureComponent {
             <div className={cx("result-data")}>
               {data.map(d => <Record key={`_key_${d.index}`} {...d} />)}
             </div>
+            <BackTop/>
             <Paginator
               totalPages={totalPages}
               currentPageNum={currentPage}
