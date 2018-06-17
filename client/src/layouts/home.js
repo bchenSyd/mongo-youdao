@@ -1,11 +1,19 @@
-import React from "react";
+import React, { PureComponent, createRef } from "react";
 import { encode } from "../common/queryString";
 import classNames from "classnames/bind";
 import styles from "./home.less";
 
 const cx = classNames.bind(styles);
-const Home = ({ history }) => {
-  const onClick = () => {
+
+class Home extends PureComponent {
+  queryRef = createRef();
+
+  componentDidMount() {
+    this.queryRef.current.focus();
+  }
+  
+  onClick = () => {
+    const { history } = this.props;
     const { value: keyword } = document.querySelector(`input[name='q']`);
     if (!keyword) {
       return;
@@ -16,19 +24,21 @@ const Home = ({ history }) => {
       })}`
     );
   };
-  const handleEnterKey = e => {
+  handleEnterKey = e => {
     if (e.key === "Enter") {
-      onClick();
+      this.onClick();
     }
   };
-  return (
-    <div className={cx(["home-page", "wrapper"])}>
-      <div className={cx("search-box")}>
-        <input name="q" onKeyPress={handleEnterKey} />
-        <button onClick={onClick}>search</button>
+  render() {
+    return (
+      <div className={cx(["home-page", "wrapper"])}>
+        <div className={cx("search-box")}>
+          <input name="q" onKeyPress={this.handleEnterKey} ref={this.queryRef}/>
+          <button onClick={this.onClick}>search</button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Home;
