@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './paginator.less';
 
@@ -12,7 +13,7 @@ const Paginator = ({ totalPages, currentPageNum, buildPaginatorLink }) => {
     const showLeftLump = () => {
         const leftLump = [];
         if (currentPageNum > naviRange + 1) {
-            leftLump.push(<a href={buildPaginatorLink(1)} key={`page_1`} >1</a>);
+            leftLump.push(<Link to={buildPaginatorLink(1)} key={`page_1`} >1</Link>);
         }
         if (currentPageNum > naviRange + 2) {
             leftLump.push(<span key={`page_left_lump`}>...</span>);
@@ -25,7 +26,7 @@ const Paginator = ({ totalPages, currentPageNum, buildPaginatorLink }) => {
             rightLump.push(<span key={`page_right_lump`}>...</span>);
         }
         if (totalPages > currentPageNum + naviRange) {
-            rightLump.push(<a href={buildPaginatorLink(totalPages)} key={`page_${totalPages}`} >{totalPages}</a>);
+            rightLump.push(<Link to={buildPaginatorLink(totalPages)} key={`page_${totalPages}`} >{totalPages}</Link>);
         }
         return rightLump;
     };
@@ -34,7 +35,7 @@ const Paginator = ({ totalPages, currentPageNum, buildPaginatorLink }) => {
             {showLeftLump()}
             {pageNumbers.map(p =>
                 (p === currentPageNum ? <span key={`page_${p}`}>{p}</span>
-                    : <a href={buildPaginatorLink(p)} key={`page_${p}`}>{p}</a>))}
+                    : <Link to={buildPaginatorLink(p)} key={`page_${p}`}>{p}</Link>))}
             {showRightLump()}
         </div>
     );

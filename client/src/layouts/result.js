@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
+import { Link } from 'react-router-dom';
 import Record from "../components/record";
 import Paginator from "../components/pageinator";
 import { encode, decode } from "../common/queryString";
@@ -75,6 +76,7 @@ class Result extends Component {
     const { q, totalPages, currentPage, data } = queryResult;
     return (
       <div className={cx("results")}>
+        <Link to='/'>Home</Link>
         { (totalPages && totalPages >= currentPage ) ? (
           <Fragment>
             <div className={cx("result-data")}>
