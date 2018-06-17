@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require("path");
 const app = express();
+const apiRoute = require('./route');
 
+// cors
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -12,33 +14,16 @@ app.use(function (req, res, next) {
   next();
 });
 
-
+// static
 app.use(express.static(path.resolve(__dirname, '../dist')));
+
+// body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-var router = express.Router();
-router.get("/search", async function (req, res) {
-  const { query: { q } } = req;
-  await new Promise(res => setTimeout(() => {
-    res(true);
-  }, 1000));
-  
-  res.json({
-    q,
-    code: 0
-  })
-});
 
-router.post("/search", function (req, res) {
-  const { body: { q } } = req;
+// route
+app.use("/api", apiRoute);
 
-  res.json({
-    q,
-    code: 1
-  })
-});
-
-app.use("/api", router);
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0");
