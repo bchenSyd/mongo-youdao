@@ -1,23 +1,25 @@
 .paginator {
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  > a,
-  span,
-  div {
-    &:not(:first-child) {
-      padding: 0 3px;
-      margin-left: 30px;
-    }
-  }
-  .goto {
-    input {
-      text-align: center;
-      width: 30px;
-      position: relative;
-      top: -1px;
-      margin-right: 5px;
-    }
+  justify-content: space-between;
+  // > a,
+  // span,
+  // div {
+  //   &:not(:first-child) {
+  //     padding: 0 3px;
+  //     margin-left: 15px;
+  //   }
+  // }
+}
+.goto {
+  margin-top:5px;
+  text-align: center;
+  input {
+    text-align: center;
+    width: 50px;
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
   }
 }

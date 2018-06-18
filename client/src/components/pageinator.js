@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { compose, withState, withHandlers } from "recompose";
 import classNames from "classnames/bind";
@@ -14,7 +14,7 @@ const Paginator = props => {
     onChange,
     onClick
   } = props;
-  const naviRange = 2; //  1 ... 4  5  *6*  7  8 ... 38
+  const naviRange = 1; //  1 ... 4  5  *6*  7  8 ... 38
   const pageNumbers = Array.from(
     { length: naviRange * 2 + 1 },
     (_, i) => currentPageNum - naviRange + i
@@ -48,27 +48,34 @@ const Paginator = props => {
     }
     return rightLump;
   };
+  const onKeyPress = e => {
+    if (e.key === "Enter") {
+      onClick(e);
+    }
+  };
   return (
-    <div className={cx("paginator")}>
-      {showLeftLump()}
-      {pageNumbers.map(
-        p =>
-          p === currentPageNum ? (
-            <span key={`page_${p}`}>{p}</span>
-          ) : (
-            <Link to={buildPaginatorLink(p)} key={`page_${p}`}>
-              {p}
-            </Link>
-          )
-      )}
-      {showRightLump()}
+    <Fragment>
+      <div className={cx("paginator")}>
+        {showLeftLump()}
+        {pageNumbers.map(
+          p =>
+            p === currentPageNum ? (
+              <span key={`page_${p}`}>{p}</span>
+            ) : (
+              <Link to={buildPaginatorLink(p)} key={`page_${p}`}>
+                {p}
+              </Link>
+            )
+        )}
+        {showRightLump()}
+      </div>
       <div className={cx("goto")}>
-        <input value={pageNumber} onChange={onChange} />
-        <a href="#" onClick={onClick}>
+        <input value={pageNumber} onChange={onChange} onKeyPress={onKeyPress}/>
+        <a href="#" onClick={onClick} >
           Go
         </a>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
@@ -82,7 +89,7 @@ const enhance = compose(
     onClick: props => e => {
       e.preventDefault();
       const { pageNumber, onGotoPage } = props;
-      onGotoPage(pageNumber)();
+      onGotoPage(pageNumber);
     }
   })
 );

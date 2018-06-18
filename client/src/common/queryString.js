@@ -1,10 +1,11 @@
 const encode = queryObj => {
   return Object.keys(queryObj)
-    .reduce(
-      (acc, val) =>
-        acc + queryObj[val] && `&${val}=` + encodeURIComponent(queryObj[val]),
-      ""
-    )
+    .reduce((acc, val) => {
+      const append = queryObj[val]
+        ? `&${val}=` + encodeURIComponent(queryObj[val])
+        : "";
+      return acc + append;
+    }, "")
     .slice(1);
 };
 const decode = queryString => {
