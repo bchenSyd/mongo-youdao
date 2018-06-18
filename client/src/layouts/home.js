@@ -15,9 +15,6 @@ class Home extends PureComponent {
   onClick = () => {
     const { history } = this.props;
     const { value: keyword } = document.querySelector(`input[name='q']`);
-    if (!keyword) {
-      return;
-    }
     history.push(
       `/result?${encode({
         q: keyword,

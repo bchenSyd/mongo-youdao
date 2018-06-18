@@ -1,7 +1,8 @@
 const encode = queryObj => {
   return Object.keys(queryObj)
     .reduce(
-      (acc, val) => acc + `&${val}=` + encodeURIComponent(queryObj[val]),
+      (acc, val) =>
+        acc + queryObj[val] && `&${val}=` + encodeURIComponent(queryObj[val]),
       ""
     )
     .slice(1);

@@ -46,10 +46,6 @@ class Result extends PureComponent {
     } = this.props;
 
     const { q, pageNum } = decode(search);
-    if (!q) {
-      history.push("/");
-    }
-
     this.setState({
       isloading: true
     });
@@ -91,7 +87,7 @@ class Result extends PureComponent {
             <div className={cx("result-data")}>
               {data.map(d => <Record key={`_key_${d.index}`} {...d} />)}
             </div>
-            <BackTop/>
+            <BackTop />
             <Paginator
               totalPages={totalPages}
               currentPageNum={currentPage}
