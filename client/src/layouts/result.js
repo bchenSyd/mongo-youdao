@@ -89,7 +89,7 @@ class Result extends PureComponent {
     const { q, totalPages, currentPage, data } = queryResult;
     return (
       <div className={cx("results")}>
-        <Link to="/">Home</Link>
+        <Link to="/" className={cx('header-link')}>Home</Link>
         {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>
@@ -97,6 +97,7 @@ class Result extends PureComponent {
             </div>
             <BackTop />
             <Paginator
+              className={cx('paginator')}
               totalPages={totalPages}
               currentPageNum={currentPage}
               buildPaginatorLink={this.buildPaginatorLink(q)}

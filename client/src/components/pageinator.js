@@ -7,6 +7,7 @@ import styles from "./paginator.less";
 const cx = classNames.bind(styles);
 const Paginator = props => {
   const {
+    className,
     totalPages,
     currentPageNum,
     buildPaginatorLink,
@@ -54,8 +55,8 @@ const Paginator = props => {
     }
   };
   return (
-    <Fragment>
-      <div className={cx("paginator")}>
+    <div className={`${cx("paginator")} ${className}`}>
+      <div className={cx("paginator-pages")}>
         {showLeftLump()}
         {pageNumbers.map(
           p =>
@@ -69,13 +70,13 @@ const Paginator = props => {
         )}
         {showRightLump()}
       </div>
-      <div className={cx("goto")}>
+      <div className={cx("paginator-goto")}>
         <input value={pageNumber} onChange={onChange} onKeyPress={onKeyPress}/>
         <a href="#" onClick={onClick} >
           Go
         </a>
       </div>
-    </Fragment>
+    </div>
   );
 };
 
