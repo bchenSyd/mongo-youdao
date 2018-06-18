@@ -6,8 +6,10 @@
   > a,
   span,
   div {
-    padding: 0 3px;
-    margin-left: 30px;
+    &:not(:first-child) {
+      padding: 0 3px;
+      margin-left: 30px;
+    }
   }
   .goto {
     input {
