@@ -1,10 +1,21 @@
-.paginator{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    > a, span{
-        padding: 0 3px;
-        margin-left: 30px;
+.paginator {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  > a,
+  span,
+  div {
+    padding: 0 3px;
+    margin-left: 30px;
+  }
+  .goto {
+    input {
+      text-align: center;
+      width: 30px;
+      position: relative;
+      top: -1px;
+      margin-right: 5px;
     }
+  }
 }

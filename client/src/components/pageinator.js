@@ -1,44 +1,89 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames/bind';
-import styles from './paginator.less';
+import React from "react";
+import { Link } from "react-router-dom";
+import { compose, withState, withHandlers } from "recompose";
+import classNames from "classnames/bind";
+import styles from "./paginator.less";
 
 const cx = classNames.bind(styles);
-const Paginator = ({ totalPages, currentPageNum, buildPaginatorLink }) => {
-    const naviRange = 2; //  1 ... 4  5  *6*  7  8 ... 38
-    const pageNumbers = Array.from({ length: naviRange * 2 + 1 },
-        (_, i) => currentPageNum - naviRange + i)
-        .filter(n => n > 0 && n <= totalPages); // -3 -- 3
+const Paginator = props => {
+  const {
+    totalPages,
+    currentPageNum,
+    buildPaginatorLink,
+    pageNumber,
+    onChange,
+    onClick
+  } = props;
+  const naviRange = 2; //  1 ... 4  5  *6*  7  8 ... 38
+  const pageNumbers = Array.from(
+    { length: naviRange * 2 + 1 },
+    (_, i) => currentPageNum - naviRange + i
+  ).filter(n => n > 0 && n <= totalPages); // -3 -- 3
 
-    const showLeftLump = () => {
-        const leftLump = [];
-        if (currentPageNum > naviRange + 1) {
-            leftLump.push(<Link to={buildPaginatorLink(1)} key={`page_1`} >1</Link>);
-        }
-        if (currentPageNum > naviRange + 2) {
-            leftLump.push(<span key={`page_left_lump`}>...</span>);
-        }
-        return leftLump;
-    };
-    const showRightLump = () => {
-        const rightLump = [];
-        if (totalPages > currentPageNum + naviRange + 1) {
-            rightLump.push(<span key={`page_right_lump`}>...</span>);
-        }
-        if (totalPages > currentPageNum + naviRange) {
-            rightLump.push(<Link to={buildPaginatorLink(totalPages)} key={`page_${totalPages}`} >{totalPages}</Link>);
-        }
-        return rightLump;
-    };
-    return (
-        <div className={cx('paginator')}>
-            {showLeftLump()}
-            {pageNumbers.map(p =>
-                (p === currentPageNum ? <span key={`page_${p}`}>{p}</span>
-                    : <Link to={buildPaginatorLink(p)} key={`page_${p}`}>{p}</Link>))}
-            {showRightLump()}
-        </div>
-    );
+  const showLeftLump = () => {
+    const leftLump = [];
+    if (currentPageNum > naviRange + 1) {
+      leftLump.push(
+        <Link to={buildPaginatorLink(1)} key={`page_1`}>
+          1
+        </Link>
+      );
+    }
+    if (currentPageNum > naviRange + 2) {
+      leftLump.push(<span key={`page_left_lump`}>...</span>);
+    }
+    return leftLump;
+  };
+  const showRightLump = () => {
+    const rightLump = [];
+    if (totalPages > currentPageNum + naviRange + 1) {
+      rightLump.push(<span key={`page_right_lump`}>...</span>);
+    }
+    if (totalPages > currentPageNum + naviRange) {
+      rightLump.push(
+        <Link to={buildPaginatorLink(totalPages)} key={`page_${totalPages}`}>
+          {totalPages}
+        </Link>
+      );
+    }
+    return rightLump;
+  };
+  return (
+    <div className={cx("paginator")}>
+      {showLeftLump()}
+      {pageNumbers.map(
+        p =>
+          p === currentPageNum ? (
+            <span key={`page_${p}`}>{p}</span>
+          ) : (
+            <Link to={buildPaginatorLink(p)} key={`page_${p}`}>
+              {p}
+            </Link>
+          )
+      )}
+      {showRightLump()}
+      <div className={cx("goto")}>
+        <input value={pageNumber} onChange={onChange} />
+        <a href="#" onClick={onClick}>
+          Go
+        </a>
+      </div>
+    </div>
+  );
 };
 
-export default Paginator;
+const enhance = compose(
+  withState("pageNumber", "setPageNumber", ""),
+  withHandlers({
+    onChange: ({ setPageNumber }) => event => {
+      const { value } = event.target;
+      setPageNumber(value);
+    },
+    onClick: props => e => {
+      e.preventDefault();
+      const { pageNumber, onGotoPage } = props;
+      onGotoPage(pageNumber)();
+    }
+  })
+);
+export default enhance(Paginator);

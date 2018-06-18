@@ -38,7 +38,15 @@ class Result extends PureComponent {
       q,
       pageNum
     })}`;
-
+  onGotoPage = q => pageNum => {
+    const { history } = this.props;
+    history.push(
+      `/result?${encode({
+        q,
+        pageNum
+      })}`
+    );
+  };
   queryData = () => {
     const {
       location: { search },
@@ -92,6 +100,7 @@ class Result extends PureComponent {
               totalPages={totalPages}
               currentPageNum={currentPage}
               buildPaginatorLink={this.buildPaginatorLink(q)}
+              onGotoPage={this.onGotoPage(q)}
             />
           </Fragment>
         ) : (
