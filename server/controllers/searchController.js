@@ -4,10 +4,20 @@ const pageSize = 20;
 const search = async ({ keyword, pageNumber = 1 }) => {
   const findBy = keyword
     ? {
-        explaination: {
-          $regex: keyword,
-          $options: "i"
-        }
+        $or: [
+          {
+            word: {
+              $regex: keyword,
+              $options: "i"
+            }
+          },
+          {
+            explaination: {
+              $regex: keyword,
+              $options: "i"
+            }
+          }
+        ]
       }
     : {};
   const matches = await db
