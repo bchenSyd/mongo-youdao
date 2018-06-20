@@ -41,14 +41,17 @@ class BackTop extends Component {
   }
 
   handleScroll = () => {
-    const footerClientRect = this.footerNode.getBoundingClientRect();
+    const footerClientRect /*dom element's position regarding *current window* !not document!*/ = this.footerNode.getBoundingClientRect();
     const windowClientHeight = document.body.clientHeight;
 
     const style = this.ref.current.style;
     style.display = this.getScrollOffset() > 400 ? "block" : "none";
     if (footerClientRect.top < windowClientHeight) {
       // footer is visible
-      style.position = "absolute";
+      style.position = "absolute"; /* absolute is relative to *initial* window
+        if you set postion: absolute; bottom: 10px; after scroll a full page, you won't be able to find that element anymore;
+        becuase its positioned 10px above the *first window(page)* bottom;
+      */
       style.bottom = "";
       style.top = this.getScrollOffset() + footerClientRect.top - 90 + "px";
     } else {
