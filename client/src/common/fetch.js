@@ -7,7 +7,7 @@ export default function callApi(endpoint, method = 'get', body = null) {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
-        body: body ? JSON.stringify(body) : body,
+        body: body ? JSON.stringify(body) : undefined,
     };
 
     return fetch(endpoint, { ...options })
