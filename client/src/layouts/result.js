@@ -42,15 +42,13 @@ class Result extends PureComponent {
 
   onNewSearch = e => {
     const { history } = this.props;
-    const { value: keyword } = document.querySelector(`input[name='q']`);
-    if (keyword) {
+    const { value: q } = document.querySelector(`input[name='q']`);
       history.push(
         `/result?${encode({
-          q: keyword,
+          q,
           pageNum: 1
         })}`
       );
-    }
   };
 
   onGotoPage = q => pageNum => {
