@@ -1,15 +1,16 @@
 import React, { PureComponent, createRef } from "react";
 import { encode } from "../common/queryString";
+import { SearchBox } from "../components";
 import classNames from "classnames/bind";
 import styles from "./home.less";
 
 const cx = classNames.bind(styles);
 
 class Home extends PureComponent {
-  queryRef = createRef();
+  searchBoxRef = createRef();
 
   componentDidMount() {
-    this.queryRef.current.focus();
+    this.searchBoxRef.current.focus();
   }
 
   onClick = () => {
@@ -22,22 +23,11 @@ class Home extends PureComponent {
       })}`
     );
   };
-  handleEnterKey = e => {
-    if (e.key === "Enter") {
-      this.onClick();
-    }
-  };
+
   render() {
     return (
       <div className={cx(["home-page", "wrapper"])}>
-        <div className={cx("search-box")}>
-          <input
-            name="q"
-            onKeyPress={this.handleEnterKey}
-            ref={this.queryRef}
-          />
-          <button onClick={this.onClick}>search</button>
-        </div>
+        <SearchBox ref={this.searchBoxRef} onClick={this.onClick} />
       </div>
     );
   }

@@ -16,6 +16,33 @@
   .header-link {
     flex: none;
   }
+  .searchBox {
+    margin-top: 0;
+    input,
+    button {
+      height: 35px;
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+    input {
+      width: calc(80% - 10px);
+    }
+    button {
+      width: 20%;
+      margin-top: 0;
+    }
+    @media (min-width: 800px) {
+      padding: 0;
+      input,
+      button {
+        height: 40px;
+      }
+      button {
+        width: 100px;
+      }
+    }
+  }
   .result-data {
     flex: 1 0 auto;
     margin-bottom: 40px;

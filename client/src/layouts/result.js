@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from "react";
 import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import { Record, Paginator, BackTop } from "../components";
+import { SearchBox, Record, Paginator, BackTop } from "../components";
 import { encode, decode } from "../common/queryString";
 import { search as searchAPI } from "../common/apiClient";
 import styles from "./result.less";
@@ -47,6 +47,7 @@ class Result extends PureComponent {
       })}`
     );
   };
+
   queryData = () => {
     const {
       location: { search },
@@ -89,7 +90,8 @@ class Result extends PureComponent {
     const { q, totalPages, currentPage, data } = queryResult;
     return (
       <div className={cx("results")}>
-        <Link to="/" className={cx('header-link')}>Home</Link>
+        {/* <Link to="/" className={cx('header-link')}>Home</Link> */}
+        <SearchBox onClick={this.queryData} className={cx("searchBox")} />
         {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>
@@ -97,7 +99,7 @@ class Result extends PureComponent {
             </div>
             <BackTop />
             <Paginator
-              className={cx('paginator')}
+              className={cx("paginator")}
               totalPages={totalPages}
               currentPageNum={currentPage}
               buildPaginatorLink={this.buildPaginatorLink(q)}
