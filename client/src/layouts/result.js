@@ -18,18 +18,19 @@ const NoResult = ({ keyword }) => (
 class Result extends PureComponent {
   state = {
     isloading: false,
+    keyword: "",
     queryResult: null
   };
 
   componentDidMount() {
-    this.queryData();
+    this.loadData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { location: locationOld } = prevProps;
     const { location } = this.props;
     if (locationOld !== location) {
-      this.queryData();
+      this.loadData();
     }
   }
 
@@ -38,6 +39,20 @@ class Result extends PureComponent {
       q,
       pageNum
     })}`;
+
+  onNewSearch = e => {
+    const { history } = this.props;
+    const { value: keyword } = document.querySelector(`input[name='q']`);
+    if (keyword) {
+      history.push(
+        `/result?${encode({
+          q: keyword,
+          pageNum: 1
+        })}`
+      );
+    }
+  };
+
   onGotoPage = q => pageNum => {
     const { history } = this.props;
     history.push(
@@ -48,7 +63,7 @@ class Result extends PureComponent {
     );
   };
 
-  queryData = () => {
+  loadData = () => {
     const {
       location: { search },
       history
@@ -56,6 +71,7 @@ class Result extends PureComponent {
 
     const { q, pageNum } = decode(search);
     this.setState({
+      keyword: q,
       isloading: true
     });
 
@@ -77,7 +93,7 @@ class Result extends PureComponent {
   };
 
   render() {
-    const { isloading } = this.state;
+    const { isloading, keyword } = this.state;
     if (isloading) {
       return <ReactSpinner className={cx("react-spinner")} />;
     }
@@ -91,7 +107,11 @@ class Result extends PureComponent {
     return (
       <div className={cx("results")}>
         {/* <Link to="/" className={cx('header-link')}>Home</Link> */}
-        <SearchBox onClick={this.queryData} className={cx("searchBox")} />
+        <SearchBox
+          onClick={this.onNewSearch}
+          className={cx("searchBox")}
+          defaultValue={keyword}
+        />
         {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>

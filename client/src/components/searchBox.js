@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./searchBox.less";
 
 const cx = classNames.bind(styles);
-const SearchBox = forwardRef(({ className, onClick }, ref) => {
+const SearchBox = forwardRef(({ defaultValue,  className, onClick }, ref) => {
   const handleEnterKey = e => {
     if (e.key === "Enter") {
       onClick();
@@ -11,7 +11,7 @@ const SearchBox = forwardRef(({ className, onClick }, ref) => {
   };
   return (
     <div className={`${cx("search-box")} ${className}` } >
-      <input name="q" onKeyPress={handleEnterKey} ref={ref} />
+      <input name="q" defaultValue={defaultValue} onKeyPress={handleEnterKey} ref={ref} />
       <button onClick={onClick}>search</button>
     </div>
   );
