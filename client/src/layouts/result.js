@@ -110,7 +110,10 @@ class Result extends PureComponent {
     return (
       <div className={cx("results")}>
         {/* <Link to="/" className={cx('header-link')}>Home</Link> */}
-        <SearchBox ref={this.serachBoxRef} onClick={this.onNewSearch} defaultValue={keyword} />
+        <SearchBox ref={this.serachBoxRef} 
+        className={cx('searchBox')}
+        onClick={this.onNewSearch} 
+        defaultValue={keyword}/>
         {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>
