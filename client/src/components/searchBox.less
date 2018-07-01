@@ -9,19 +9,26 @@
   // }
 
   input {
+    // below code (copied from google) doesn't work on safari (ok on chrome, ff, and ie)
+    //border: none;
+    // box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    // transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    // replacement
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+
+    //normal styles begin
     padding: 0 8px;
-    border: none;
     width: 100%;
     background-color: #fff;
     height: 44px;
     font-size: 1em;
     vertical-align: top;
     border-radius: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
-  .search-img{
+  .search-img {
     cursor: pointer;
     vertical-align: middle;
     color: #4285f4;
@@ -32,7 +39,7 @@
     top: 5px;
   }
 
-  @media (min-width: 800px){
-      width: 70%;
+  @media (min-width: 800px) {
+    width: 70%;
   }
 }
