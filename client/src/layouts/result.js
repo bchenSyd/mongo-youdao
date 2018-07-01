@@ -107,7 +107,6 @@ class Result extends PureComponent {
         {/* <Link to="/" className={cx('header-link')}>Home</Link> */}
         <SearchBox
           onClick={this.onNewSearch}
-          className={cx("searchBox")}
           defaultValue={keyword}
         />
         {totalPages && totalPages >= currentPage ? (

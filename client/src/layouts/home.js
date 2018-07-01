@@ -27,7 +27,7 @@ class Home extends PureComponent {
   render() {
     return (
       <div className={cx(["home-page", "wrapper"])}>
-        <SearchBox ref={this.searchBoxRef} onClick={this.onClick} />
+        <SearchBox ref={this.searchBoxRef} onClick={this.onClick} className={cx("searchBox")}/>
       </div>
     );
   }
