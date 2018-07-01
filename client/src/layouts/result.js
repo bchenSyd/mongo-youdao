@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from "react";
+import React, { PureComponent, Fragment, createRef } from "react";
 import { ReactSpinner } from "react-spinning-wheel";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -22,6 +22,8 @@ class Result extends PureComponent {
     queryResult: null
   };
 
+  serachBoxRef = createRef();
+
   componentDidMount() {
     this.loadData();
   }
@@ -43,12 +45,12 @@ class Result extends PureComponent {
   onNewSearch = e => {
     const { history } = this.props;
     const { value: q } = document.querySelector(`input[name='q']`);
-      history.push(
-        `/result?${encode({
-          q,
-          pageNum: 1
-        })}`
-      );
+    history.push(
+      `/result?${encode({
+        q,
+        pageNum: 1
+      })}`
+    );
   };
 
   onGotoPage = q => pageNum => {
@@ -90,6 +92,9 @@ class Result extends PureComponent {
       });
   };
 
+  onScrolledTop = ()=>{
+    this.serachBoxRef.current.focus();
+  }
   render() {
     const { isloading, keyword } = this.state;
     if (isloading) {
@@ -105,16 +110,13 @@ class Result extends PureComponent {
     return (
       <div className={cx("results")}>
         {/* <Link to="/" className={cx('header-link')}>Home</Link> */}
-        <SearchBox
-          onClick={this.onNewSearch}
-          defaultValue={keyword}
-        />
+        <SearchBox ref={this.serachBoxRef} onClick={this.onNewSearch} defaultValue={keyword} />
         {totalPages && totalPages >= currentPage ? (
           <Fragment>
             <div className={cx("result-data")}>
               {data.map(d => <Record key={`_key_${d.index}`} {...d} />)}
             </div>
-            <BackTop />
+            <BackTop scrollTopDone={this.onScrolledTop}/>
             <Paginator
               className={cx("paginator")}
               totalPages={totalPages}

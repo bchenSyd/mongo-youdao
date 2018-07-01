@@ -71,6 +71,10 @@ class BackTop extends Component {
       this.setScrollTop(easeInOutCubic(time, scrollTop, 0, 450));
       if (time < 450) {
         raf(frameFunc);
+      }else{
+        // scroll to top completed;
+        const { scrollTopDone } = this.props;
+        scrollTopDone && scrollTopDone();
       }
     };
     raf(frameFunc);
