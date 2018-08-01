@@ -13,6 +13,9 @@ app.use(function(req, res, next) {
     "Access-Control-Allow-Headers",
     "Origin, Authorization, X-Requested-With, Content-Type, Accept"
   );
+  if (req.method === "OPTIONS") {
+    return res.end();
+  }
   next();
 });
 
